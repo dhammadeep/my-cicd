@@ -1,0 +1,35 @@
+name: Deploy Laravel to EC2
+
+on:
+  push:
+    branches:
+      - main # Trigger deployment on pushes to 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Deploy Laravel Sail on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@13.233.93.90 << 'EOF'
+            if [ ! -d "/var/www/my-cicd-app" ]; then
+              cd /var/www
+              git clone https://github.com/dhammadeep/my-cicd.git
+            fi
+            cd /var/www/my-cicd-app" ]; then
+            git pull origin dev
+            composer update
+            sudo vendor/bin/sail down
+            sudo vendor/bin/sail up -d
+            sudo vendor/bin/sail artisan migrate --force
+            sudo vendor/bin/sail artisan config:cache
+          EOF
