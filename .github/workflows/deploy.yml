@@ -21,11 +21,11 @@ jobs:
       - name: Deploy Laravel Sail on EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@13.233.93.90 << 'EOF'
-            if [ ! -d "/var/www/my-cicd-app" ]; then
-              cd /var/www
+            if [ ! -d "/home/ubuntu/my-cicd" ]; then
+              cd /home/ubuntu
               git clone https://github.com/dhammadeep/my-cicd.git
             fi
-            cd /var/www/my-cicd-app" ]; then
+            cd /home/ubuntu/my-cicd" ]; then
             git pull origin dev
             composer update
             sudo vendor/bin/sail down
