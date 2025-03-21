@@ -25,11 +25,11 @@ jobs:
               cd /home/ubuntu
               git clone https://github.com/dhammadeep/my-cicd.git
             fi
-            cd /home/ubuntu/my-cicd" ]; then
+            cd /home/ubuntu/my-cicd
             git pull origin dev
             composer update
-            sudo vendor/bin/sail down
-            sudo vendor/bin/sail up -d
-            sudo vendor/bin/sail artisan migrate --force
-            sudo vendor/bin/sail artisan config:cache
+            ./vendor/bin/sail down
+            ./vendor/bin/sail up -d
+            ./vendor/bin/sail artisan migrate --force
+            ./vendor/bin/sail artisan config:cache
           EOF
