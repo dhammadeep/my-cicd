@@ -29,7 +29,7 @@ jobs:
             git pull origin dev
             composer update
             ./vendor/bin/sail down
-            ./vendor/bin/sail up -d
+            ./vendor/bin/sail up
             ./vendor/bin/sail artisan migrate --force
             ./vendor/bin/sail artisan config:cache
           EOF
